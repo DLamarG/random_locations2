@@ -4,13 +4,9 @@ window.onload = () => {
   const userContainer = document.querySelector("#userContainer")
   
   const mapContainer = document.querySelector('#map')
-  // Generate options for the user dropdown dynamically
-  for (let i = 1; i <= 100; i++) {
-      const option = document.createElement('option');
-      option.value = i;
-      option.text = i;
-      userSelect.appendChild(option);
-  }
+
+
+  
 
   const doFetch = async (url) => {
     const result = await fetch(url)
@@ -18,56 +14,67 @@ window.onload = () => {
     return resultJson
   }
 
-  const getPeople = async () => {
+  const getLocation = async () => {
     const url = `${baseUrl}/all`
     const fetchResult = await doFetch(url)
     const locations = fetchResult.locations
+    let randomNum = Math.floor(Math.random(locations.length) * locations.length)
+    // console.log(randomNum)
     // randomize for one person
-    console.log(locations)
+    createHtmlPerson(locations[randomNum])
+    // return locations[randomNum]
+
   }
+
 
   
 
-  const removeUsers = () => {
-    while(userContainer.firstChild) {
-      userContainer.removeChild(userContainer.firstChild)
-    }
-  }
+//   const removeUsers = () => {
+//     while(userContainer.firstChild) {
+//       userContainer.removeChild(userContainer.firstChild)
+//     }
+//   }
 
   const createHtmlPerson = (location) => {
-    const div = document.createElement("div")
-    const h3 = document.createElement("h3")
-    const p1 = document.createElement("p")
-    const p2 = document.createElement("p")
+      console.log(location)
+   
 
-    h3.innerText = `id: ${location[0]}`
-    p1.innerText = `lat: ${location[1]}`
-    p2.innerText = `lon: ${location[2]}`
+    // const div = document.createElement("div")
+    // const h3 = document.createElement("h3")
+    // const p1 = document.createElement("p")
+    // const p2 = document.createElement("p")
 
-    div.appendChild(h3)
-    div.appendChild(p1)
-    div.appendChild(p2)
+    // h3.innerText = `id: ${location[0]}`
+    // p1.innerText = `lat: ${location[1]}`
+    // p2.innerText = `lon: ${location[2]}`
 
-    div.className = "item"
+    // div.appendChild(h3)
+    // div.appendChild(p1)
+    // div.appendChild(p2)
 
-    userContainer.appendChild(div)
+    // div.className = "item"
+
+    // userContainer.appendChild(div)
   }
 
 
-  userSelect.addEventListener("change" ,(e) => {
-      removeUsers()
-      getPerson(e.target.value)
-    })
+//   userSelect.addEventListener("change" ,(e) => {
+//       removeUsers()
+//       getPerson(e.target.value)
+//     })
   
-  listBtn.addEventListener("click" ,() => {
-      removeUsers()
-      getPeople()
+  listBtn.addEventListener("click" ,()  => {
+      // removeUsers()
+      getLocation()
+      // createHtmlPerson()
+
     })
 
-    const map = L.map('map').setView([51.505, -0.09], 13);
+//     const map = L.map('map').setView([51.505, -0.09], 13);
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '© OpenStreetMap'
-}).addTo(map);
+//     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+//     maxZoom: 19,
+//     attribution: '© OpenStreetMap'
+// }).addTo(map);
+
 }

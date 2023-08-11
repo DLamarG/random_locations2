@@ -13,11 +13,12 @@ def index():
     return json.dumps({'msg': "success"})
 
 @app.route('/all')
+
 def all_users():
     with psycopg2.connect(
     host=HOST,
     port=PORT,  # whatever port postgres is running on
-    database="locations_db",
+    database="location_db",
     user="postgres",
     password="password") as conn:
         with conn.cursor() as cursor:
